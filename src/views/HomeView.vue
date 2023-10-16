@@ -4,7 +4,8 @@ export default {
   data() {
     return {
       name: " Óli Viðar",
-      movies: ["Blu beatle", "deadpool", "spider-man: no way home"]
+      movies: ["Blu beatle", "deadpool", "spider-man: no way home", "haunting in venice"],
+      times: ["19:00", "20:00", "21:00"]
     }
   }
 }
@@ -25,7 +26,7 @@ body {
 
 .home{
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   padding: 15px;
   margin-left: 50px;
   margin-right: 50px;
@@ -43,7 +44,7 @@ main{
 
 li{
   margin-bottom: 15px;
-  padding: 25px;
+  padding: 35px;
   width: 100%;
   background-color: white;
   border-radius: 6px;
@@ -60,7 +61,10 @@ li{
     </main>
 
     <ul>
-      <li v-for="movie in movies">{{ movie }}</li>
+      <li>Mynd 1</li>
+      <li>Mynd 2</li>
+      <li>Mynd 3</li>
+      <li>Mynd 4</li>
     </ul>
 
   </div>

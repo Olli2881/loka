@@ -4,7 +4,7 @@ export default {
   data() {
     return {
       name: " Óli Viðar",
-      movies: ["Blu beatle", "deadpool", "spider-man: no way home"]
+      movies: ["Blu beatle", "deadpool", "spider-man: no way home", "haunting in venice"]
     }
   }
 }
@@ -24,7 +24,8 @@ body {
 
 .about{
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: left;
   padding: 15px;
   margin-left: 50px;
   margin-right: 50px;
