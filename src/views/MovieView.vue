@@ -7,3 +7,5 @@ import TheWelcome from '../components/TheWelcome.vue'
     Svæði skrá
   </main>
 </template>
+
+

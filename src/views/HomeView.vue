@@ -1,19 +1,34 @@
 <script>
-
+import axios from 'axios';
 export default {
   data() {
     return {
       name: " Óli Viðar",
-      movies: ["Blu beatle", "deadpool", "spider-man: no way home", "haunting in venice"],
-      times: ["19:00", "20:00", "21:00"]
+      movies: []
     }
+  },
+  mounted() {
+    axios.get('https://grouplimit.co/api/v1/cinema/LFZHAia7t0NjjJ62F2pB')
+        .then( (response) => {
+          // handle success
+          console.log(response);
+          this.movies = response.data.data
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
+        .finally(function () {
+          // always executed
+        });
   }
 }
 </script>
 
 <style>
-html, body{
-  height: 100%;
+
+a{
+  color: darkblue;
 }
 
 body {
@@ -21,33 +36,82 @@ body {
   background-image: url("");
   background-repeat: no-repeat;
   background-size: cover;
-  color: darkblue;
+  color: black;
 }
 
 .home{
+  display: inline-block;
+  justify-content: center;
+  width: auto;
+  padding: 15px;
+  background-color: darkred;
+  border-radius: 20px;
+}
+
+.location{
   display: flex;
   flex-direction: column;
-  padding: 15px;
-  margin-left: 50px;
-  margin-right: 50px;
-  background-color: #8B0000;
-  border-radius: 6px;
+  background-color: darkred;
+}
+
+.movie_time{
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 2px;
+}
+
+.show{
+  display: flex;
+  flex-direction: column;
+  background-color: gray;
+  padding-bottom: 3px;
+}
+
+.rating{
+  display: flex;
+  left: auto;
+}
+
+h3{
+  display: flex;
+  left: auto;
+  padding-left: 10px;
+}
+
+div{
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 5px;
+  display: inline-block;
+  float: left;
+  width: auto;
+}
+
+img{
+  display: inline-block;
+  float: left;
+  height: 350px;
+  width: 250px;
+  padding: 10px;
 }
 
 main{
   display: flex;
   justify-content: center;
-  padding: 20px;
-  text-align: left;
-  color: white;
+  padding-bottom: 25px;
+  color: gold;
 }
 
-li{
-  margin-bottom: 15px;
-  padding: 35px;
-  width: 100%;
-  background-color: white;
-  border-radius: 6px;
+span{
+  display: flex;
+  justify-content: left;
+}
+
+h1{
+  display: flex;
+  justify-content: center;
+  padding: 10px;
 }
 
 </style>
@@ -57,15 +121,50 @@ li{
   <div class="home">
 
     <main>
-      Heima síða
+      <strong>
+        Heima Síðan
+      </strong>
     </main>
 
-    <ul>
-      <li>Mynd 1</li>
-      <li>Mynd 2</li>
-      <li>Mynd 3</li>
-      <li>Mynd 4</li>
-    </ul>
+    <div class="location">
+
+      <div v-for="movie in movies" >
+
+        <img :src="movie.poster">
+
+        <h3><strong> {{ movie["name"] }} ({{ movie.year }})</strong></h3>
+
+        <div class="rating">
+          <span>
+              <p>
+                Imdb raiting: <strong>{{ movie.imdb_rating }}</strong>
+              </p>
+          </span>
+        </div>
+
+        <div v-for="(showtime,name) in movie.showtimes" >
+
+          <h1>
+            <strong> {{name}} </strong>
+          </h1>
+
+          <div class="show">
+
+            <div class="movie_time" v-for="time in showtime">
+
+              <div>
+                {{time.location}} - {{time.time}}
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
 
   </div>
 
@@ -75,7 +174,14 @@ li{
 @media (min-width: 1024px) {
   .home {
     min-height: 100vh;
-    display: flex;
+    display: inline-block;
+    align-items: center;
+  }
+}
+
+@media (min-width: 1024px) {
+  .movie_time {
+    display: inline-block;
     align-items: center;
   }
 }
